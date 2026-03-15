@@ -54,6 +54,14 @@ Give a high-level project goal. The Product Owner Agent will connect to the LLM,
 python autonomous_claw/cli.py start "Build a Python script that scrapes HackerNews top 10 articles and saves them to a CSV file."
 ```
 
+If you have a complex project, you can outline it comprehensively in a Product Requirements Document (PRD) and pass it to the Swarm! Just create a markdown file like `PRD.md`.
+*If `PRD.md` is present in your working directory, AutonomousClaw will load it automatically!*
+
+```powershell
+# Manually define the path to your PRD
+python autonomous_claw/cli.py start "Implement the task manager according to the PRD." --prd ./specs/project_prd.md
+```
+
 ### 2. View Sprint Status
 Check the current state of "Our Plan" to see what tasks are Queued (`TODO`), `IN PROGRESS`, `DONE`, or `VERIFIED` (by QA).
 

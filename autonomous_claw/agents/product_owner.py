@@ -23,12 +23,17 @@ CRITICAL: Provide your output exactly as requested, focusing on technical breakd
 ```
 """
 
-def generate_sprint_backlog(high_level_prompt: str) -> str:
+def generate_sprint_backlog(high_level_prompt: str, prd_content: str | None = None) -> str:
     """
     Connect to the LLM and pass the Product Owner context.
     Returns the structured Sprint Backlog text (or JSON).
     """
+    if prd_content:
+        user_prompt = f"Please build a backlog for the following project: {high_level_prompt}\n\nHere is the detailed Product Requirements Document (PRD):\n\n{prd_content}"
+    else:
+        user_prompt = f"Please build a backlog for the following project: {high_level_prompt}"
+
     return generate_response(
         system_prompt=SYSTEM_PROMPT,
-        user_prompt=f"Please build a backlog for the following project: {high_level_prompt}",
+        user_prompt=user_prompt,
     )

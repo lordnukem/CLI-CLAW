@@ -10,16 +10,32 @@ from autonomous_claw.memory.json_store import init_new_sprint, load_state
 app = typer.Typer(help="AutonomousClaw: A Zero-Human Software Development Orchestrator")
 console = Console()
 
+import os
+
 @app.command()
-def start(prompt: str = typer.Argument(..., help="High-level project prompt (e.g., 'Build a task manager')")):
+def start(
+    prompt: str = typer.Argument(..., help="High-level project prompt (e.g., 'Build a task manager')"),
+    prd: str = typer.Option(None, "--prd", help="Path to a Product Requirements Document (e.g., PRD.md)")
+):
     """
     Initialize an Autonomous Sprint for a new or existing project.
     """
     console.print(Panel(f"[bold green]Starting Autonomous Sprint[/bold green]\nTarget: {prompt}", title="AutonomousClaw", expand=False))
+    
+    prd_content = None
+    if prd and os.path.exists(prd):
+        console.print(f"[cyan]Loading PRD document from: {prd}...[/cyan]")
+        with open(prd, "r", encoding="utf-8") as f:
+            prd_content = f.read()
+    elif os.path.exists("PRD.md"):
+        console.print("[cyan]Found local PRD.md. Loading PRD document...[/cyan]")
+        with open("PRD.md", "r", encoding="utf-8") as f:
+            prd_content = f.read()
+
     console.print("[cyan]The Product Owner is breaking down the prompt into a sprint backlog...[/cyan]")
     
     # Run the PO agent
-    backlog_response = generate_sprint_backlog(prompt)
+    backlog_response = generate_sprint_backlog(prompt, prd_content=prd_content)
     
     try:
         # Parse into persistent state
