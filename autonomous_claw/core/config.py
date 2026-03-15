@@ -22,4 +22,20 @@ class Config:
     def api_key(self) -> str:
         return os.environ.get("CLAW_API_KEY", os.environ.get("OPENAI_API_KEY", ""))
 
+    @property
+    def use_oauth(self) -> bool:
+        return os.environ.get("CLAW_USE_OAUTH", "true").lower() == "true"
+
+    @property
+    def oauth_token_url(self) -> str:
+        return os.environ.get("CLAW_OAUTH_TOKEN_URL", "")
+
+    @property
+    def oauth_client_id(self) -> str:
+        return os.environ.get("CLAW_OAUTH_CLIENT_ID", "")
+
+    @property
+    def oauth_client_secret(self) -> str:
+        return os.environ.get("CLAW_OAUTH_CLIENT_SECRET", "")
+
 config = Config()
