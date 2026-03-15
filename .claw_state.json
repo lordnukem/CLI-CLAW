@@ -1,0 +1,13 @@
+{
+    "sprint_goal": "Build a Hello World CLI script",
+    "tasks": [
+        {
+            "title": "Create Python script",
+            "description": "Write a python script that prints 'Hello Gemini!'",
+            "assigned_agent": "Developer",
+            "status": "verified",
+            "qa_approved": true
+        }
+    ],
+    "status": "completed"
+}
